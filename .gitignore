@@ -17,6 +17,7 @@ localization-analyzer
 *.bak
 duplicates*.txt
 results.txt
+Localizable.strings
 
 # Dependency directories (remove these if vendoring dependencies)
 /vendor/

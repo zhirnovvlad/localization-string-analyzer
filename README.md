@@ -10,6 +10,7 @@ A Go utility to analyze iOS/macOS `.strings` localization files for duplicate ke
 - Can automatically create a cleaned version of the file with duplicates removed
 - Preserves the original file by saving cleaned output to a separate file
 - Supports output to file and custom input files
+- Includes additional utility tools for specific tasks
 
 ## Why Use This Tool
 
@@ -71,6 +72,66 @@ Or build and run the binary:
 - `-clean` : Create a cleaned version of the file at the specified path (must be different from input file)
 - `-v` : Verbose mode - show more details in terminal output
 
+## Additional Utility Tools
+
+In addition to the main analyzer, this repository includes two useful utility tools for specific localization tasks:
+
+### 1. Key Counter (count_keys.go)
+
+A simple utility that counts the total number of keys and unique keys in a .strings file.
+
+```bash
+# Count keys in the default Localizable.strings file
+go run count_keys.go
+
+# Count keys in a specific file
+go run count_keys.go -f path/to/your/Localizable.strings
+```
+
+Output example:
+```
+File: Localizable.strings
+Total Entries: 1788
+Unique Keys: 1611
+Duplicate Entries: 177 (9.9%)
+```
+
+### 2. Key Checker (check_keys.go)
+
+A utility to check if a specific key exists in a .strings file and displays its value(s).
+
+```bash
+# Check if a key exists in the default Localizable.strings file
+go run check_keys.go "YourKeyToCheck"
+
+# Check a key in a specific file
+go run check_keys.go -f path/to/your/Localizable.strings "YourKeyToCheck"
+```
+
+Output examples:
+
+When a key is found once:
+```
+Key "Cancel" found in Localizable.strings (1 occurrence):
+  Line 45: "Cancel"
+```
+
+When a key has multiple occurrences:
+```
+Key "OK" found in Localizable.strings (2 occurrences):
+  Line 15: "OK"
+  Line 225: "OK"
+All occurrences have the same value.
+```
+
+When a key has conflicts:
+```
+Key "Hello World" found in Localizable.strings (2 occurrences):
+  Line 10: "Hello World"
+  Line 42: "Hola Mundo"
+WARNING: Key has different values in different occurrences (localization conflict)!
+```
+
 ## Sample Output
 
 When duplicate keys with the same value are found:
@@ -126,7 +187,7 @@ Comments (lines starting with `//`) are automatically ignored.
 ## Building From Source
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/localization-string-analyzer.git
+git clone https://github.com/zhirnovvlad/localization-string-analyzer.git
 cd localization-string-analyzer
 ./build.sh
 ```
