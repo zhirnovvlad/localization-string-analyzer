@@ -1,0 +1,28 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+localization-analyzer
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Local test files
+*-cleaned.strings
+*.bak
+duplicates*.txt
+results.txt
+
+# Dependency directories (remove these if vendoring dependencies)
+/vendor/
+
+# Go workspace file
+go.work
+
+# macOS specific files
+.DS_Store 
